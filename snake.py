@@ -4,6 +4,7 @@ import random
 
 delay = 0.1
 score = 0
+body = []
 
 screen = turtle.Screen()
 screen.title("The Snake Game by Francisco Correa")
@@ -25,29 +26,40 @@ food.shape("circle")
 food.penup()
 food.goto(50,50)
 
-body = []
+points = turtle.Turtle()
+points.color("#00008B")
+points.hideturtle()
+points.penup()
+points.goto(0,220)
+points.write("score: 0 ", font=("Times New Roman", 20), align="center")
+
+
 
 def go_up():
-    snake.direction = "up"
+    if snake.direction != "down":
+        snake.direction = "up"
 def go_down():
-    snake.direction = "down"
+    if snake.direction != "up":
+        snake.direction = "down"
 def go_right():
-    snake.direction = "right"
+    if snake.direction != "left":
+        snake.direction = "right"
 def go_left():
-    snake.direction = "left"
+    if snake.direction != "right":
+        snake.direction = "left"
 def move():
     if snake.direction == "up":
         y = snake.ycor()
-        snake.sety(y + 15)
+        snake.sety(y + 10)
     if snake.direction == "down":
         y = snake.ycor()
-        snake.sety(y - 15)
+        snake.sety(y - 10)
     if snake.direction == "right":
         x = snake.xcor()
-        snake.setx(x + 15)
+        snake.setx(x + 10)
     if snake.direction == "left":
         x = snake.xcor()
-        snake.setx(x - 15)
+        snake.setx(x - 10)
 
 screen.listen()
 screen.onkeypress(go_up, "Up")
@@ -63,10 +75,14 @@ while True:
         snake.direction = "stop"
 
         for x in body:
-            x.goto(1000, 1000)
+            x.goto(800, 800)
         body.clear()
+        
+        score = 0
+        points.clear()
+        points.write("score: {}  ".format(score), font=("Times New Roman", 20), align="center")
 
-    if snake.distance(food) < 20:
+    if snake.distance(food) < 10:
         x = random.randint(-250, 250)
         y = random.randint(-250, 250)
         food.goto(x, y)
@@ -77,6 +93,11 @@ while True:
         new_body.speed(0)
         new_body.penup()
         body.append(new_body)
+
+        score += 1
+        
+        points.clear()
+        points.write("score: {}  ".format(score), font=("Times New Roman", 20), align="center")
     
     for i in range(len(body)-1, 0, -1):
         x = body[i - 1].xcor()
@@ -89,15 +110,19 @@ while True:
         body[0].goto(x, y)
     move()
 
-    # for x in body:
-    #     if x.distance(body) < 20:
-    #         time.sleep(1)
-    #         snake.goto(0,0)
-    #         snake.direction = "stop"
+    for x in body:
+        if x.distance(snake) < 10:
+            time.sleep(1)
+            snake.goto(0,0)
+            snake.direction = "stop"
 
-    #         for x in body:
-    #             x.goto(1000, 1000)
-    #         body.clear()
+            for x in body:
+                x.goto(800, 800)
+            body.clear()
+
+            score = 0
+            points.clear()
+            points.write("score: {}  ".format(score), font=("Times New Roman", 20), align="center")
 
     time.sleep(delay)
 
