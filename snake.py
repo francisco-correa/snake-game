@@ -4,6 +4,7 @@ import random
 
 delay = 0.1
 score = 0
+high_score = 0
 body = []
 
 screen = turtle.Screen()
@@ -31,9 +32,7 @@ points.color("#00008B")
 points.hideturtle()
 points.penup()
 points.goto(0,220)
-points.write("score: 0 ", font=("Times New Roman", 20), align="center")
-
-
+points.write("Score: 0  High Score: 0", font=("Times New Roman", 20), align="right")
 
 def go_up():
     if snake.direction != "down":
@@ -78,9 +77,10 @@ while True:
             x.goto(800, 800)
         body.clear()
         
+        delay = 0.1
         score = 0
         points.clear()
-        points.write("score: {}  ".format(score), font=("Times New Roman", 20), align="center")
+        points.write("Score: {}  High Score: {}".format(score, high_score), font=("Times New Roman", 20), align="right")
 
     if snake.distance(food) < 10:
         x = random.randint(-250, 250)
@@ -94,10 +94,12 @@ while True:
         new_body.penup()
         body.append(new_body)
 
+        delay -= 0.01
         score += 1
-        
+        if score > high_score:
+            high_score = score
         points.clear()
-        points.write("score: {}  ".format(score), font=("Times New Roman", 20), align="center")
+        points.write("Score: {}  High Score: {}".format(score, high_score), font=("Times New Roman", 20), align="right")
     
     for i in range(len(body)-1, 0, -1):
         x = body[i - 1].xcor()
@@ -120,12 +122,10 @@ while True:
                 x.goto(800, 800)
             body.clear()
 
+            delay = 0.1
             score = 0
             points.clear()
-            points.write("score: {}  ".format(score), font=("Times New Roman", 20), align="center")
+            points.write("Score: {}  High Score: {}   ".format(score, high_score), font=("Times New Roman", 20), align="right")
 
     time.sleep(delay)
-
-# turtle.done()
 screen.mainloop() 
-# turtle.showTurtle()
