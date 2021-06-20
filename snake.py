@@ -29,16 +29,12 @@ body = []
 
 def go_up():
     snake.direction = "up"
-
 def go_down():
     snake.direction = "down"
-
 def go_right():
     snake.direction = "right"
-
 def go_left():
     snake.direction = "left"
-
 def move():
     if snake.direction == "up":
         y = snake.ycor()
