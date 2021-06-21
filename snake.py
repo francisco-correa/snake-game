@@ -32,7 +32,7 @@ points.color("#00008B")
 points.hideturtle()
 points.penup()
 points.goto(0,220)
-points.write("Score: 0  High Score: 0", font=("Times New Roman", 20), align="right")
+points.write("Your Score: 0  High Score: 0", font=("Times New Roman", 20), align="center")
 
 def go_up():
     if snake.direction != "down":
@@ -46,7 +46,7 @@ def go_right():
 def go_left():
     if snake.direction != "right":
         snake.direction = "left"
-def move():
+def moveSnake():
     if snake.direction == "up":
         y = snake.ycor()
         snake.sety(y + 10)
@@ -68,7 +68,7 @@ screen.onkeypress(go_left, "Left")
 
 while True:
     screen.update()
-    if snake.xcor() > 250 or snake.xcor() < -250 or snake.ycor() > 250 or snake.ycor() < -250:
+    if snake.xcor() > 240 or snake.xcor() < -240 or snake.ycor() > 240 or snake.ycor() < -240:
         time.sleep(1)
         snake.goto(0,0)
         snake.direction = "stop"
@@ -80,11 +80,11 @@ while True:
         delay = 0.1
         score = 0
         points.clear()
-        points.write("Score: {}  High Score: {}".format(score, high_score), font=("Times New Roman", 20), align="right")
+        points.write("Your Score: {}  High Score: {}".format(score, high_score), font=("Times New Roman", 20), align="center")
 
     if snake.distance(food) < 10:
-        x = random.randint(-250, 250)
-        y = random.randint(-250, 250)
+        x = random.randint(-240, 240)
+        y = random.randint(-240, 240)
         food.goto(x, y)
     
         new_body = turtle.Turtle()
@@ -94,12 +94,12 @@ while True:
         new_body.penup()
         body.append(new_body)
 
-        delay -= 0.01
+        delay -= 0.0009
         score += 1
         if score > high_score:
             high_score = score
         points.clear()
-        points.write("Score: {}  High Score: {}".format(score, high_score), font=("Times New Roman", 20), align="right")
+        points.write("Your Score: {}  High Score: {}".format(score, high_score), font=("Times New Roman", 20), align="center")
     
     for i in range(len(body)-1, 0, -1):
         x = body[i - 1].xcor()
@@ -110,7 +110,7 @@ while True:
         x = snake.xcor()
         y = snake.ycor()
         body[0].goto(x, y)
-    move()
+    moveSnake()
 
     for x in body:
         if x.distance(snake) < 10:
@@ -125,7 +125,7 @@ while True:
             delay = 0.1
             score = 0
             points.clear()
-            points.write("Score: {}  High Score: {}   ".format(score, high_score), font=("Times New Roman", 20), align="right")
+            points.write("Your Score: {}  High Score: {}   ".format(score, high_score), font=("Times New Roman", 20), align="center")
 
     time.sleep(delay)
 screen.mainloop() 
