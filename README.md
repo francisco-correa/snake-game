@@ -1,8 +1,9 @@
 ## :snake:Snake Game:snake:
 
 ## How to use this repository?
+* install python - this version v3.9.2
 *  `git clone https://github.com/francisco-correa/snake-game.git`
-* remember import these libraries ***turtle, random and time***
+* remember import these modules ***turtle, random and time***
 
 ## How to run the game?
 *  Run python in the **snake.py** file
